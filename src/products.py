@@ -61,7 +61,7 @@ class Category:
         prod_str = []
         for prod in self.__products:
             prod_str.append(str(prod))
-        return " ".join(prod_str)
+        return "\n".join(prod_str)
 
 
 if __name__ == "__main__":
