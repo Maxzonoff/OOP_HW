@@ -20,6 +20,9 @@ class Product:
             params["quantity"],
         )
 
+    def __add__(self, other):
+        return self.__price * self.quantity + other.__price * other.quantity
+
     @property
     def price(self) -> float:
         return self.__price
@@ -42,6 +45,12 @@ class Category:
         self.__products = products
         Category.category_count += 1
         Category.product_count += len(products)
+        self.total_products_quantity = 0
+
+    def __str__(self):
+        for product in self.__products:
+            self.total_products_quantity += product.quantity
+        return f"{self.name}, количество продуктов: {self.total_products_quantity} шт."
 
     def add_product(self, product: Product) -> None:
         self.__products.append(product)
@@ -62,35 +71,20 @@ if __name__ == "__main__":
     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
     product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
 
+    print(str(product1))
+    print(str(product2))
+    print(str(product3))
+
     category1 = Category(
         "Смартфоны",
         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
         [product1, product2, product3],
     )
 
+    print(str(category1))
+
     print(category1.products)
-    product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
-    category1.add_product(product4)
-    print(category1.products)
-    print(category1.product_count)
 
-    new_product = Product.new_product(
-        {
-            "name": "Samsung Galaxy S23 Ultra",
-            "description": "256GB, Серый цвет, 200MP камера",
-            "price": 180000.0,
-            "quantity": 5,
-        }
-    )
-    print(new_product.name)
-    print(new_product.description)
-    print(new_product.price)
-    print(new_product.quantity)
-
-    new_product.price = 800
-    print(new_product.price)
-
-    new_product.price = -100
-    print(new_product.price)
-    new_product.price = 0
-    print(new_product.price)
+    print(product1 + product2)
+    print(product1 + product3)
+    print(product2 + product3)

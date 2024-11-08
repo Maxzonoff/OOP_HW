@@ -1,5 +1,3 @@
-from unicodedata import category
-
 from src.products import Category, Product
 
 
