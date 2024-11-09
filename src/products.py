@@ -1,7 +1,10 @@
+from typing import Any
+
+
 class Product:
 
     def __init__(
-            self, name: str, description: str, price: float, quantity: int
+        self, name: str, description: str, price: float, quantity: int
     ) -> None:
         self.name = name
         self.description = description
@@ -21,7 +24,7 @@ class Product:
         )
 
     def __add__(self, other):
-        if type(self) != type(other):
+        if not isinstance(other, type(self)):
             raise TypeError
         return self.__price * self.quantity + other.__price * other.quantity
 
@@ -39,15 +42,15 @@ class Product:
 
 class Smartphone(Product):
     def __init__(
-            self,
-            name: str,
-            description: str,
-            price: float,
-            quantity: int,
-            efficiency: float,
-            model: str,
-            memory: int,
-            color: str,
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        efficiency: float,
+        model: str,
+        memory: int,
+        color: str,
     ) -> None:
         super().__init__(name, description, price, quantity)
         self.efficiency = efficiency
@@ -58,14 +61,14 @@ class Smartphone(Product):
 
 class LawnGrass(Product):
     def __init__(
-            self,
-            name: str,
-            description: str,
-            price: float,
-            quantity: int,
-            country: str,
-            germination_period: str,
-            color: str
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        country: str,
+        germination_period: str,
+        color: str,
     ) -> None:
         super().__init__(name, description, price, quantity)
         self.country = country
@@ -90,9 +93,9 @@ class Category:
             self.total_products_quantity += product.quantity
         return f"{self.name}, количество продуктов: {self.total_products_quantity} шт."
 
-    def add_product(self, product: Product) -> None:
+    def add_product(self, product: Any) -> None:
         if not isinstance(product, Product):
-            raise ValueError
+            raise TypeError
         self.__products.append(product)
         Category.product_count += 1
 
@@ -101,14 +104,33 @@ class Category:
         prod_str = []
         for prod in self.__products:
             prod_str.append(str(prod))
-        return "\n".join(prod_str)
+        return " ".join(prod_str)
 
 
-if __name__ == '__main__':
-    smartphone1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5,
-                             "S23 Ultra", 256, "Серый")
-    smartphone2 = Smartphone("Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space")
-    smartphone3 = Smartphone("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14, 90.3, "Note 11", 1024, "Синий")
+if __name__ == "__main__":
+    smartphone1 = Smartphone(
+        "Samsung Galaxy S23 Ultra",
+        "256GB, Серый цвет, 200MP камера",
+        180000.0,
+        5,
+        95.5,
+        "S23 Ultra",
+        256,
+        "Серый",
+    )
+    smartphone2 = Smartphone(
+        "Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space"
+    )
+    smartphone3 = Smartphone(
+        "Xiaomi Redmi Note 11",
+        "1024GB, Синий",
+        31000.0,
+        14,
+        90.3,
+        "Note 11",
+        1024,
+        "Синий",
+    )
 
     print(smartphone1.name)
     print(smartphone1.description)
@@ -137,8 +159,24 @@ if __name__ == '__main__':
     print(smartphone3.memory)
     print(smartphone3.color)
 
-    grass1 = LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
-    grass2 = LawnGrass("Газонная трава 2", "Выносливая трава", 450.0, 15, "США", "5 дней", "Темно-зеленый")
+    grass1 = LawnGrass(
+        "Газонная трава",
+        "Элитная трава для газона",
+        500.0,
+        20,
+        "Россия",
+        "7 дней",
+        "Зеленый",
+    )
+    grass2 = LawnGrass(
+        "Газонная трава 2",
+        "Выносливая трава",
+        450.0,
+        15,
+        "США",
+        "5 дней",
+        "Темно-зеленый",
+    )
 
     print(grass1.name)
     print(grass1.description)
@@ -169,8 +207,12 @@ if __name__ == '__main__':
     else:
         print("Не возникла ошибка TypeError при попытке сложения")
 
-    category_smartphones = Category("Смартфоны", "Высокотехнологичные смартфоны", [smartphone1, smartphone2])
-    category_grass = Category("Газонная трава", "Различные виды газонной травы", [grass1, grass2])
+    category_smartphones = Category(
+        "Смартфоны", "Высокотехнологичные смартфоны", [smartphone1, smartphone2]
+    )
+    category_grass = Category(
+        "Газонная трава", "Различные виды газонной травы", [grass1, grass2]
+    )
 
     category_smartphones.add_product(smartphone3)
 
