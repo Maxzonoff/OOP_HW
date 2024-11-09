@@ -34,6 +34,8 @@ build-backend = "poetry.core.masonry.api"
 Функционал:
 
 Реализован класс Product
+Реализован класс Smartphone
+Реализован класс LawnGrass
 Реализован класс Category
 
 Тестирование:
