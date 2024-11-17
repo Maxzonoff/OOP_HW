@@ -37,6 +37,9 @@ build-backend = "poetry.core.masonry.api"
 Реализован класс Smartphone
 Реализован класс LawnGrass
 Реализован класс Category
+Реализован абстрактный класс BaseProduct
+Реализован класс MixinLog
+
 
 Тестирование:
 
