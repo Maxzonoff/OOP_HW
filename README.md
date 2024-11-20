@@ -41,6 +41,7 @@ build-backend = "poetry.core.masonry.api"
 Реализован класс MixinLog
 
 
+
 Тестирование:
 
 Код в модульных пакетах src с покрытыми тестами

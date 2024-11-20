@@ -5,17 +5,24 @@ from src.products import LawnGrass, Product, Smartphone
 
 def test_product_init():
     """Тест для инициализации"""
-    name = "яблоко"
-    description = "описание яблока"
-    price = 10
-    quantity = 2
+    name = "Iphone 15"
+    description = "512GB, Gray space"
+    price = 210000
+    quantity = 8
 
     product = Product(name, description, price, quantity)
+    assert product.name == "Iphone 15"
+    assert product.description == "512GB, Gray space"
+    assert product.price == 210000
+    assert product.quantity == 8
 
-    assert product.name == "яблоко"
-    assert product.description == "описание яблока"
-    assert product.price == 10
-    assert product.quantity == 2
+
+def test_product_quantity_zero():
+    """Тест на выброс исключения при нулевом количестве продукта"""
+    with pytest.raises(
+        ValueError, match="Товар с нулевым количеством не может быть добавлен"
+    ):
+        Product("Iphone 15", "512GB, Gray space", 210000, 0)
 
 
 def test_str():
@@ -31,18 +38,18 @@ def test_str():
 def test_new_product():
     """Тест для метода new_product"""
     params = {
-        "name": "яблоко",
-        "description": "описание яблока",
-        "price": 10,
-        "quantity": 2,
+        "name": "Iphone 15",
+        "description": "512GB, Gray space",
+        "price": 210000,
+        "quantity": 8,
     }
 
     product = Product.new_product(params)
 
-    assert product.name == "яблоко"
-    assert product.description == "описание яблока"
-    assert product.price == 10
-    assert product.quantity == 2
+    assert product.name == "Iphone 15"
+    assert product.description == "512GB, Gray space"
+    assert product.price == 210000
+    assert product.quantity == 8
 
 
 def test_add():
@@ -54,6 +61,7 @@ def test_add():
 
 
 def test_price_setter():
+    """Тест для сеттера атрибута 'price'"""
     name = "яблоко"
     description = "описание яблока"
     price = 10
